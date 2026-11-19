@@ -26,3 +26,4 @@
   }
 }
 "@capacitor/app": "^6.0.2"
+"@types/node": "^22.0.0"
