@@ -1,4 +1,62 @@
-import { useEffect, useMemo, useState } from "react";
+import { App as CapacitorApp } from "@capacitor/app";
+import { useEffect(() => {
+  let listener: { remove: () => Promise<void> } | undefined;
+
+  async function setupSpotify() {
+    try {
+      await completeLogin();
+
+      if (getToken()) {
+        setConnected(true);
+      }
+
+      listener = await CapacitorApp.addListener(
+        "appUrlOpen",
+        async ({ url }) => {
+          const callback = new URL(url);
+
+          if (
+            callback.protocol === "com.redwave.music:" &&
+            callback.hostname === "callback"
+          ) {
+            try {
+              window.history.replaceState(
+                {},
+                document.title,
+                "/"
+              );
+
+              await completeLogin();
+
+              if (getToken()) {
+                setConnected(true);
+                setNotice("Spotify connected successfully!");
+              }
+            } catch (error) {
+              setNotice(
+                error instanceof Error
+                  ? error.message
+                  : "Spotify connection failed."
+              );
+            }
+          }
+        }
+      );
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "Spotify connection failed."
+      );
+    }
+  }
+
+  setupSpotify();
+
+  return () => {
+    listener?.remove();
+  };
+}, []);, useMemo, useState } from "react";
 import {
   Activity, AudioLines, Bell, ChevronDown, CircleHelp, Compass, Disc3,
   Heart, Home, Library, ListMusic, LogOut, Maximize2, MoreHorizontal,
