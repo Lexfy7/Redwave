@@ -1,6 +1,7 @@
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID as string | undefined;
-const REDIRECT_URI = (import.meta.env.VITE_SPOTIFY_REDIRECT_URI as string | undefined)
-  ?? `${window.location.origin}/callback`;
+const REDIRECT_URI =
+  import.meta.env.VITE_SPOTIFY_REDIRECT_URI
+  ?? "com.redwave.music://callback";
 const SCOPES = [
   "user-read-private",
   "user-read-email",
