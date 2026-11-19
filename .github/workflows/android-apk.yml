@@ -1,3 +1,4 @@
+
 name: Build Android APK
 
 on:
@@ -13,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-            - name: Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
