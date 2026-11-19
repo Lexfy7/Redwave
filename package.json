@@ -25,3 +25,4 @@
     "@capacitor/cli": "^6.2.0"
   }
 }
+"@capacitor/app": "^6.0.2"
